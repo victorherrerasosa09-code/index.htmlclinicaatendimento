@@ -1,285 +1,420 @@
-# index.htmlclinicaatendimento
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Clínica - Gestão</title>
+<!DOCTYPE html>  <html lang="pt-BR">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Clínica de Fisioterapia - Sistema de Automação</title>  
+    <link rel="stylesheet" href="style.css">  
+</head>  
+<body>  
+    <div class="container">  
+        <!-- MENU LATERAL -->  
+        <aside class="sidebar">  
+            <div class="logo">  
+                <h1>🏥 ClinicaAI</h1>  
+                <p>Sistema de Automação</p>  
+            </div>  <nav class="menu">  
+            <a href="#" data-page="dashboard" class="menu-item active">  
+                <span>📊</span> Dashboard  
+            </a>  
+            <a href="#" data-page="clientes" class="menu-item">  
+                <span>👥</span> Clientes  
+            </a>  
+            <a href="#" data-page="leads" class="menu-item">  
+                <span>🎯</span> Leads  
+            </a>  
+            <a href="#" data-page="agendamentos" class="menu-item">  
+                <span>📅</span> Agendamentos  
+            </a>  
+            <a href="#" data-page="servicos" class="menu-item">  
+                <span>💼</span> Serviços  
+            </a>  
+            <a href="#" data-page="automacoes" class="menu-item">  
+                <span>🤖</span> Automações  
+            </a>  
+            <a href="#" data-page="ia" class="menu-item">  
+                <span>🧠</span> Assistente IA  
+            </a>  
+            <a href="#" data-page="relatorios" class="menu-item">  
+                <span>📈</span> Relatórios  
+            </a>  
+            <a href="#" data-page="configuracoes" class="menu-item">  
+                <span>⚙️</span> Configurações  
+            </a>  
+        </nav>  
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
+        <div class="sidebar-footer">  
+            <p>👨‍💼 Admin</p>  
+            <small>Sistema v1.0</small>  
+        </div>  
+    </aside>  
 
-    body {
-      background: #f5f7fb;
-      color: #1f2937;
-    }
+    <!-- CONTEÚDO PRINCIPAL -->  
+    <main class="main-content">  
+        <div class="header">  
+            <h2 id="page-title">Dashboard</h2>  
+            <button class="menu-toggle" id="menu-toggle">☰</button>  
+        </div>  
 
-    header {
-      background: #ffffff;
-      padding: 20px;
-      border-bottom: 1px solid #e5e7eb;
-    }
+        <!-- DASHBOARD -->  
+        <div id="dashboard" class="page active">  
+            <div class="cards">  
+                <div class="card">  
+                    <span>Pacientes</span>  
+                    <strong id="total-pacientes">128</strong>  
+                </div>  
+                <div class="card">  
+                    <span>Agendamentos hoje</span>  
+                    <strong id="agendamentos-hoje">08</strong>  
+                </div>  
+                <div class="card">  
+                    <span>Follow-ups</span>  
+                    <strong id="followups">03</strong>  
+                </div>  
+                <div class="card">  
+                    <span>Leads em negociação</span>  
+                    <strong id="leads-negociacao">12</strong>  
+                </div>  
+            </div>  
 
-    header h1 {
-      font-size: 22px;
-    }
+            <section class="section">  
+                <h2>📅 Agendamentos de hoje</h2>  
+                <div id="agendamentos-list"></div>  
+            </section>  
 
-    header p {
-      color: #6b7280;
-      margin-top: 5px;
-      font-size: 14px;
-    }
+            <section class="section">  
+                <h2>⚠️ Pendências</h2>  
+                <div id="pendencias-list"></div>  
+            </section>  
 
-    .container {
-      padding: 20px;
-      max-width: 1100px;
-      margin: auto;
-    }
+            <section class="section">  
+                <h2>🤖 Automações Ativas</h2>  
+                <div id="automacoes-list"></div>  
+            </section>  
 
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 15px;
-      margin-bottom: 25px;
-    }
+            <section class="section">  
+                <h2>📊 Funil de Atendimento</h2>  
+                <div class="funnel">  
+                    <div class="funnel-item">  
+                        <div class="funnel-bar" style="width: 100%; background: #FF6B6B;"></div>  
+                        <div class="funnel-label">Novo Lead<br><strong>45</strong></div>  
+                    </div>  
+                    <div class="funnel-item">  
+                        <div class="funnel-bar" style="width: 85%; background: #FFA500;"></div>  
+                        <div class="funnel-label">Primeiro Contato<br><strong>38</strong></div>  
+                    </div>  
+                    <div class="funnel-item">  
+                        <div class="funnel-bar" style="width: 70%; background: #FFD93D;"></div>  
+                        <div class="funnel-label">Qualificação<br><strong>32</strong></div>  
+                    </div>  
+                    <div class="funnel-item">  
+                        <div class="funnel-bar" style="width: 60%; background: #6BCB77;"></div>  
+                        <div class="funnel-label">Agendamento<br><strong>27</strong></div>  
+                    </div>  
+                    <div class="funnel-item">  
+                        <div class="funnel-bar" style="width: 50%; background: #4D96FF;"></div>  
+                        <div class="funnel-label">Atendimento<br><strong>22</strong></div>  
+                    </div>  
+                    <div class="funnel-item">  
+                        <div class="funnel-bar" style="width: 40%; background: #9D4EDD;"></div>  
+                        <div class="funnel-label">Contratação<br><strong>18</strong></div>  
+                    </div>  
+                    <div class="funnel-item">  
+                        <div class="funnel-bar" style="width: 35%; background: #3A86FF;"></div>  
+                        <div class="funnel-label">Acompanhamento<br><strong>16</strong></div>  
+                    </div>  
+                </div>  
+            </section>  
+        </div>  
 
-    .card {
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      border: 1px solid #e5e7eb;
-    }
+        <!-- CLIENTES -->  
+        <div id="clientes" class="page">  
+            <div class="page-header">  
+                <h2>Gerenciar Clientes</h2>  
+                <button class="btn btn-primary" id="btn-novo-cliente">+ Novo Cliente</button>  
+            </div>  
 
-    .card span {
-      color: #6b7280;
-      font-size: 13px;
-    }
+            <div class="search-bar">  
+                <input type="text" id="search-clientes" placeholder="🔍 Buscar cliente...">  
+            </div>  
 
-    .card strong {
-      display: block;
-      font-size: 28px;
-      margin-top: 8px;
-    }
+            <div id="clientes-list" class="clients-grid"></div>  
+        </div>  
 
-    .section {
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      margin-bottom: 20px;
-      border: 1px solid #e5e7eb;
-    }
+        <!-- LEADS -->  
+        <div id="leads" class="page">  
+            <div class="page-header">  
+                <h2>Gerenciar Leads</h2>  
+                <button class="btn btn-primary" id="btn-novo-lead">+ Novo Lead</button>  
+            </div>  
 
-    .section h2 {
-      font-size: 18px;
-      margin-bottom: 15px;
-    }
+            <div class="filters">  
+                <select id="filter-origem">  
+                    <option value="">Todas as origens</option>  
+                    <option value="Instagram">Instagram</option>  
+                    <option value="WhatsApp">WhatsApp</option>  
+                    <option value="Indicação">Indicação</option>  
+                    <option value="Site">Site</option>  
+                </select>  
+                <select id="filter-status-lead">  
+                    <option value="">Todos os status</option>  
+                    <option value="Novo">Novo</option>  
+                    <option value="Em negociação">Em negociação</option>  
+                    <option value="Qualificado">Qualificado</option>  
+                    <option value="Convertido">Convertido</option>  
+                </select>  
+            </div>  
 
-    .appointment {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 0;
-      border-bottom: 1px solid #eee;
-    }
+            <div id="leads-list" class="leads-list"></div>  
+        </div>  
 
-    .appointment:last-child {
-      border-bottom: none;
-    }
+        <!-- AGENDAMENTOS -->  
+        <div id="agendamentos" class="page">  
+            <div class="page-header">  
+                <h2>Agendamentos</h2>  
+                <button class="btn btn-primary" id="btn-novo-agendamento">+ Novo Agendamento</button>  
+            </div>  
 
-    .patient {
-      font-weight: bold;
-    }
+            <div id="agendamentos-full-list" class="appointments-list"></div>  
+        </div>  
 
-    .service {
-      color: #6b7280;
-      font-size: 13px;
-      margin-top: 4px;
-    }
+        <!-- SERVIÇOS -->  
+        <div id="servicos" class="page">  
+            <div class="page-header">  
+                <h2>Serviços Oferecidos</h2>  
+                <button class="btn btn-primary" id="btn-novo-servico">+ Novo Serviço</button>  
+            </div>  
 
-    .status {
-      padding: 6px 10px;
-      border-radius: 20px;
-      font-size: 12px;
-      background: #e8f7ee;
-      color: #16803c;
-    }
+            <div id="servicos-list" class="services-grid"></div>  
+        </div>  
 
-    .pending {
-      background: #fff4d6;
-      color: #996c00;
-    }
+        <!-- AUTOMAÇÕES -->  
+        <div id="automacoes" class="page">  
+            <div class="page-header">  
+                <h2>Automações do Sistema</h2>  
+            </div>  
 
-    .automation {
-      display: flex;
-      justify-content: space-between;
-      padding: 14px 0;
-      border-bottom: 1px solid #eee;
-    }
+            <div id="automacoes-full-list"></div>  
+        </div>  
 
-    .automation:last-child {
-      border-bottom: none;
-    }
+        <!-- ASSISTENTE IA -->  
+        <div id="ia" class="page">  
+            <div class="page-header">  
+                <h2>🧠 Assistente IA</h2>  
+            </div>  
 
-    .active {
-      color: #16803c;
-      font-weight: bold;
-    }
+            <div class="ia-container">  
+                <div class="ia-chat" id="ia-chat">  
+                    <div class="chat-message bot">  
+                        <p>Olá! 👋 Sou o assistente IA da clínica. Como posso ajudar?</p>  
+                    </div>  
+                </div>  
 
-    @media (max-width: 700px) {
-      .cards {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
+                <div class="ia-input-area">  
+                    <input type="text" id="ia-input" placeholder="Digite sua mensagem..." class="ia-input">  
+                    <button class="btn btn-small" id="btn-enviar-ia">Enviar</button>  
+                </div>  
 
-    @media (max-width: 400px) {
-      .cards {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
-</head>
+                <div class="ia-functions">  
+                    <button class="btn btn-small btn-secondary" data-function="classify">Classificar Lead</button>  
+                    <button class="btn btn-small btn-secondary" data-function="suggest">Sugerir Resposta</button>  
+                    <button class="btn btn-small btn-secondary" data-function="summary">Resumo de Cliente</button>  
+                    <button class="btn btn-small btn-secondary" data-function="followup">Clientes p/ Follow-up</button>  
+                </div>  
+            </div>  
+        </div>  
 
-<body>
+        <!-- RELATÓRIOS -->  
+        <div id="relatorios" class="page">  
+            <div class="page-header">  
+                <h2>Relatórios</h2>  
+            </div>  
 
-  <header>
-    <h1>Clínica — Gestão de Pacientes</h1>
-    <p>Painel de controle e automações</p>
-  </header>
+            <div class="reports-grid">  
+                <div class="report-card">  
+                    <h3>📊 Novos Leads</h3>  
+                    <div class="report-value">45</div>  
+                    <small>Este mês</small>  
+                </div>  
 
-  <main class="container">
+                <div class="report-card">  
+                    <h3>📅 Agendamentos</h3>  
+                    <div class="report-value">128</div>  
+                    <small>Este mês</small>  
+                </div>  
 
-    <div class="cards">
+                <div class="report-card">  
+                    <h3>✅ Atendimentos</h3>  
+                    <div class="report-value">112</div>  
+                    <small>Este mês</small>  
+                </div>  
 
-      <div class="card">
-        <span>Pacientes</span>
-        <strong>128</strong>
-      </div>
+                <div class="report-card">  
+                    <h3>💰 Taxa de Conversão</h3>  
+                    <div class="report-value">87%</div>  
+                    <small>Este mês</small>  
+                </div>  
+            </div>  
 
-      <div class="card">
-        <span>Agendamentos hoje</span>
-        <strong>08</strong>
-      </div>
+            <section class="section">  
+                <h2>🎯 Serviços Mais Procurados</h2>  
+                <div id="top-services"></div>  
+            </section>  
 
-      <div class="card">
-        <span>Follow-ups</span>
-        <strong>03</strong>
-      </div>
+            <section class="section">  
+                <h2>📍 Origem dos Leads</h2>  
+                <div id="leads-origin"></div>  
+            </section>  
+        </div>  
 
-      <div class="card">
-        <span>Aguardando confirmação</span>
-        <strong>02</strong>
-      </div>
+        <!-- CONFIGURAÇÕES -->  
+        <div id="configuracoes" class="page">  
+            <div class="page-header">  
+                <h2>Configurações</h2>  
+            </div>  
 
-    </div>
+            <section class="section">  
+                <h3>Informações da Clínica</h3>  
+                <div class="form-group">  
+                    <label>Nome da Clínica</label>  
+                    <input type="text" value="Clínica de Fisioterapia & Bem-estar" class="form-control">  
+                </div>  
+                <div class="form-group">  
+                    <label>Telefone</label>  
+                    <input type="text" value="(11) 9999-9999" class="form-control">  
+                </div>  
+                <div class="form-group">  
+                    <label>Email</label>  
+                    <input type="email" value="contato@clinica.com" class="form-control">  
+                </div>  
+                <button class="btn btn-primary">💾 Salvar Configurações</button>  
+            </section>  
 
-    <section class="section">
+            <section class="section">  
+                <h3>Automações Gerais</h3>  
+                <div class="toggle-group">  
+                    <label>  
+                        <input type="checkbox" checked>  
+                        Confirmação automática de agendamentos  
+                    </label>  
+                </div>  
+                <div class="toggle-group">  
+                    <label>  
+                        <input type="checkbox" checked>  
+                        Lembrete 24h antes  
+                    </label>  
+                </div>  
+                <div class="toggle-group">  
+                    <label>  
+                        <input type="checkbox" checked>  
+                        Follow-up automático  
+                    </label>  
+                </div>  
+            </section>  
 
-      <h2>📅 Agendamentos de hoje</h2>
+            <section class="section">  
+                <h3>Dados</h3>  
+                <button class="btn btn-danger" id="btn-limpar-dados">🗑️ Limpar Todos os Dados</button>  
+            </section>  
+        </div>  
+    </main>  
+</div>  
 
-      <div class="appointment">
-        <div>
-          <div class="patient">João Silva</div>
-          <div class="service">Fisioterapia — 09:00</div>
-        </div>
+<!-- MODAIS -->  
+<div id="modal-cliente" class="modal">  
+    <div class="modal-content">  
+        <div class="modal-header">  
+            <h2>Novo Cliente</h2>  
+            <button class="close">&times;</button>  
+        </div>  
+        <div class="modal-body">  
+            <div class="form-group">  
+                <label>Nome</label>  
+                <input type="text" id="cliente-nome" class="form-control">  
+            </div>  
+            <div class="form-group">  
+                <label>Telefone</label>  
+                <input type="text" id="cliente-telefone" class="form-control">  
+            </div>  
+            <div class="form-group">  
+                <label>Email</label>  
+                <input type="email" id="cliente-email" class="form-control">  
+            </div>  
+            <div class="form-group">  
+                <label>Serviço de Interesse</label>  
+                <select id="cliente-servico" class="form-control">  
+                    <option>Fisioterapia</option>  
+                    <option>Massagem</option>  
+                    <option>Avaliação</option>  
+                    <option>Atendimento Inicial</option>  
+                </select>  
+            </div>  
+            <div class="form-group">  
+                <label>Status</label>  
+                <select id="cliente-status" class="form-control">  
+                    <option>Novo Lead</option>  
+                    <option>Em Negociação</option>  
+                    <option>Cliente Ativo</option>  
+                    <option>Inativo</option>  
+                </select>  
+            </div>  
+        </div>  
+        <div class="modal-footer">  
+            <button class="btn btn-secondary" id="btn-cancelar-cliente">Cancelar</button>  
+            <button class="btn btn-primary" id="btn-salvar-cliente">Salvar Cliente</button>  
+        </div>  
+    </div>  
+</div>  
 
-        <div class="status">
-          Confirmado
-        </div>
-      </div>
+<div id="modal-lead" class="modal">  
+    <div class="modal-content">  
+        <div class="modal-header">  
+            <h2>Novo Lead</h2>  
+            <button class="close">&times;</button>  
+        </div>  
+        <div class="modal-body">  
+            <div class="form-group">  
+                <label>Nome</label>  
+                <input type="text" id="lead-nome" class="form-control">  
+            </div>  
+            <div class="form-group">  
+                <label>Telefone</label>  
+                <input type="text" id="lead-telefone" class="form-control">  
+            </div>  
+            <div class="form-group">  
+                <label>Serviço Desejado</label>  
+                <select id="lead-servico" class="form-control">  
+                    <option>Fisioterapia</option>  
+                    <option>Massagem</option>  
+                    <option>Avaliação</option>  
+                    <option>Atendimento Inicial</option>  
+                </select>  
+            </div>  
+            <div class="form-group">  
+                <label>Origem</label>  
+                <select id="lead-origem" class="form-control">  
+                    <option>Instagram</option>  
+                    <option>WhatsApp</option>  
+                    <option>Indicação</option>  
+                    <option>Site</option>  
+                </select>  
+            </div>  
+            <div class="form-group">  
+                <label>Status</label>  
+                <select id="lead-status" class="form-control">  
+                    <option>Novo</option>  
+                    <option>Em negociação</option>  
+                    <option>Qualificado</option>  
+                    <option>Convertido</option>  
+                </select>  
+            </div>  
+        <div class="modal-footer">  
+            <button class="btn btn-secondary" id="btn-cancelar-lead">Cancelar</button>  
+            <button class="btn btn-primary" id="btn-salvar-lead">Salvar Lead</button>  
+        </div>  
+    </div>  
+</div>
 
-      <div class="appointment">
-        <div>
-          <div class="patient">Maria Souza</div>
-          <div class="service">Avaliação — 10:30</div>
-        </div>
-
-        <div class="status pending">
-          Aguardando
-        </div>
-      </div>
-
-      <div class="appointment">
-        <div>
-          <div class="patient">Pedro Santos</div>
-          <div class="service">Fisioterapia — 14:00</div>
-        </div>
-
-        <div class="status">
-          Confirmado
-        </div>
-      </div>
-
-    </section>
-
-    <section class="section">
-
-      <h2>⚠️ Pendências</h2>
-
-      <div class="appointment">
-        <div>
-          <div class="patient">Fernanda Oliveira</div>
-          <div class="service">
-            Não retorna há 14 dias
-          </div>
-        </div>
-
-        <div class="status pending">
-          Follow-up
-        </div>
-      </div>
-
-      <div class="appointment">
-        <div>
-          <div class="patient">Lucas Almeida</div>
-          <div class="service">
-            Avaliação realizada — sem fechamento
-          </div>
-        </div>
-
-        <div class="status pending">
-          Recuperar
-        </div>
-      </div>
-
-    </section>
-
-    <section class="section">
-
-      <h2>🤖 Automações</h2>
-
-      <div class="automation">
-        <span>Confirmação de agendamento</span>
-        <span class="active">ATIVA</span>
-      </div>
-
-      <div class="automation">
-        <span>Lembrete 24h antes</span>
-        <span class="active">ATIVA</span>
-      </div>
-
-      <div class="automation">
-        <span>Pós-atendimento</span>
-        <span class="active">ATIVA</span>
-      </div>
-
-      <div class="automation">
-        <span>Follow-up automático</span>
-        <span class="active">ATIVA</span>
-      </div>
-
-      <div class="automation">
-        <span>Recuperação de faltosos</span>
-        <span class="active">ATIVA</span>
-      </div>
-
-    </section>
-
-  </main>
+<script src="./script.js"></script>
 
 </body>
-</html>
+</html>  
