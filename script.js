@@ -2,6 +2,11 @@
 // DADOS DO SISTEMA
 // ===============================
 
+// ===== INICIALIZAR =====
+window.addEventListener('load', () => {
+    renderDashboard();
+});
+
 let clientes = [
     {
         nome: "Ana Souza",
@@ -1163,7 +1168,3 @@ function salvarDados() {
     localStorage.setItem('automacoes', JSON.stringify(automacoes));
 }
 
-// ===== INICIALIZAR =====
-window.addEventListener('load', () => {
-    renderDashboard();
-});
