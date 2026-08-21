@@ -1,76 +1,583 @@
-// ===== DADOS DO SISTEMA =====
-let clientes = JSON.parse(localStorage.getItem('clientes')) || [
-    { id: 1, nome: 'João Silva', telefone: '(11) 99999-1111', email: 'joao@email.com', servico: 'Fisioterapia', status: 'Cliente Ativo', ultimoContato: '2024-08-18', proximoAgendamento: '2024-08-22' },
-    { id: 2, nome: 'Maria Souza', telefone: '(11) 99999-2222', email: 'maria@email.com', servico: 'Massagem', status: 'Cliente Ativo', ultimoContato: '2024-08-19', proximoAgendamento: '2024-08-23' },
-    { id: 3, nome: 'Pedro Santos', telefone: '(11) 99999-3333', email: 'pedro@email.com', servico: 'Avaliação', status: 'Em Negociação', ultimoContato: '2024-08-15', proximoAgendamento: '2024-08-25' },
-    { id: 4, nome: 'Ana Costa', telefone: '(11) 99999-4444', email: 'ana@email.com', servico: 'Fisioterapia', status: 'Cliente Ativo', ultimoContato: '2024-08-17', proximoAgendamento: '2024-08-21' },
-    { id: 5, nome: 'Carlos Oliveira', telefone: '(11) 99999-5555', email: 'carlos@email.com', servico: 'Massagem', status: 'Inativo', ultimoContato: '2024-07-20', proximoAgendamento: null },
+// ===============================
+// DADOS DO SISTEMA
+// ===============================
+
+let clientes = [
+    {
+        nome: "Ana Souza",
+        telefone: "(47) 99999-1111",
+        email: "ana@email.com",
+        servico: "Fisioterapia",
+        status: "Cliente Ativo"
+    },
+    {
+        nome: "Carlos Oliveira",
+        telefone: "(47) 98888-2222",
+        email: "carlos@email.com",
+        servico: "Massagem",
+        status: "Cliente Ativo"
+    },
+    {
+        nome: "Mariana Santos",
+        telefone: "(47) 97777-3333",
+        email: "mariana@email.com",
+        servico: "Avaliação",
+        status: "Novo Lead"
+    }
 ];
 
-let leads = JSON.parse(localStorage.getItem('leads')) || [
-    { id: 1, nome: 'Lucas Almeida', telefone: '(11) 98888-1111', servico: 'Fisioterapia', origem: 'Instagram', dataContato: '2024-08-15', status: 'Em negociação', responsavel: 'Recepção' },
-    { id: 2, nome: 'Fernanda Oliveira', telefone: '(11) 98888-2222', servico: 'Massagem', origem: 'Indicação', dataContato: '2024-08-16', status: 'Qualificado', responsavel: 'Gerente' },
-    { id: 3, nome: 'Roberto Mendes', telefone: '(11) 98888-3333', servico: 'Avaliação', origem: 'WhatsApp', dataContato: '2024-08-18', status: 'Novo', responsavel: 'Recepção' },
-    { id: 4, nome: 'Juliana Costa', telefone: '(11) 98888-4444', servico: 'Fisioterapia', origem: 'Site', dataContato: '2024-08-19', status: 'Em negociação', responsavel: 'Gerente' },
-    { id: 5, nome: 'Ricardo Ferreira', telefone: '(11) 98888-5555', servico: 'Massagem', origem: 'Indicação', dataContato: '2024-08-14', status: 'Convertido', responsavel: 'Gerente' },
+let leads = [
+    {
+        nome: "João Pereira",
+        telefone: "(47) 96666-4444",
+        servico: "Fisioterapia",
+        origem: "Instagram",
+        status: "Novo"
+    },
+    {
+        nome: "Lucas Mendes",
+        telefone: "(47) 95555-5555",
+        servico: "Massagem",
+        origem: "Indicação",
+        status: "Em negociação"
+    },
+    {
+        nome: "Fernanda Lima",
+        telefone: "(47) 94444-6666",
+        servico: "Avaliação",
+        origem: "WhatsApp",
+        status: "Qualificado"
+    }
 ];
 
-let agendamentos = JSON.parse(localStorage.getItem('agendamentos')) || [
-    { id: 1, data: '2024-08-20', hora: '09:00', cliente: 'João Silva', profissional: 'Dr. Carlos', servico: 'Fisioterapia', status: 'Confirmado' },
-    { id: 2, data: '2024-08-20', hora: '10:30', cliente: 'Maria Souza', profissional: 'Dra. Ana', servico: 'Avaliação', status: 'Aguardando confirmação' },
-    { id: 3, data: '2024-08-20', hora: '14:00', cliente: 'Pedro Santos', profissional: 'Dr. Carlos', servico: 'Fisioterapia', status: 'Confirmado' },
-    { id: 4, data: '2024-08-20', hora: '15:30', cliente: 'Ana Costa', profissional: 'Dra. Paula', servico: 'Massagem', status: 'Confirmado' },
-    { id: 5, data: '2024-08-21', hora: '09:00', cliente: 'Lucas Almeida', profissional: 'Dr. Carlos', servico: 'Fisioterapia', status: 'Aguardando confirmação' },
+let agendamentos = [
+    {
+        paciente: "Ana Souza",
+        horario: "09:00",
+        servico: "Fisioterapia",
+        profissional: "Dr. Rafael"
+    },
+    {
+        paciente: "Carlos Oliveira",
+        horario: "10:30",
+        servico: "Massagem",
+        profissional: "Talita"
+    },
+    {
+        paciente: "Mariana Santos",
+        horario: "14:00",
+        servico: "Avaliação",
+        profissional: "Dr. Rafael"
+    }
 ];
 
-let servicos = JSON.parse(localStorage.getItem('servicos')) || [
-    { id: 1, nome: 'Fisioterapia', duracao: '60 min', valor: 'R$ 150,00', quantidade: 45, status: 'Ativo' },
-    { id: 2, nome: 'Massagem', duracao: '50 min', valor: 'R$ 120,00', quantidade: 38, status: 'Ativo' },
-    { id: 3, nome: 'Avaliação', duracao: '30 min', valor: 'R$ 80,00', quantidade: 22, status: 'Ativo' },
-    { id: 4, nome: 'Atendimento Inicial', duracao: '45 min', valor: 'R$ 100,00', quantidade: 18, status: 'Ativo' },
+let servicos = [
+    {
+        nome: "Fisioterapia",
+        descricao: "Tratamentos personalizados para recuperação física.",
+        preco: "R$ 120"
+    },
+    {
+        nome: "Massagem",
+        descricao: "Massagem terapêutica e relaxante.",
+        preco: "R$ 90"
+    },
+    {
+        nome: "Avaliação",
+        descricao: "Avaliação inicial completa.",
+        preco: "R$ 80"
+    }
 ];
 
-let automacoes = JSON.parse(localStorage.getItem('automacoes')) || [
-    { id: 1, nome: 'Confirmação de agendamento', descricao: 'Enviando confirmação automaticamente quando cliente agenda', status: 'ATIVA' },
-    { id: 2, nome: 'Lembrete 24h antes', descricao: 'Enviando lembrete 24 horas antes do atendimento', status: 'ATIVA' },
-    { id: 3, nome: 'Pós-atendimento', descricao: 'Enviando feedback e avaliação após cada atendimento', status: 'ATIVA' },
-    { id: 4, nome: 'Follow-up automático', descricao: 'Acompanhando clientes sem resposta após 7 dias', status: 'ATIVA' },
-    { id: 5, nome: 'Recuperação de faltosos', descricao: 'Contatando clientes que faltaram sem aviso prévio', status: 'ATIVA' },
-];
+// ===============================
+// NAVEGAÇÃO
+// ===============================
 
-// ===== NAVEGAÇÃO =====
-document.querySelectorAll('.menu-item').forEach(item => {
-    item.addEventListener('click', (e) => {
-        e.preventDefault();
-        const page = item.getAttribute('data-page');
-        changePage(page);
-        
-        // Fechar menu em mobile
-        if (window.innerWidth <= 768) {
-            document.querySelector('.sidebar').classList.remove('active');
-            document.getElementById('menu-toggle').classList.remove('active');
+const menuItems = document.querySelectorAll(".menu-item");
+const pages = document.querySelectorAll(".page");
+const pageTitle = document.getElementById("page-title");
+
+menuItems.forEach(item => {
+    item.addEventListener("click", function(event) {
+        event.preventDefault();
+
+        const page = this.dataset.page;
+
+        menuItems.forEach(menu => menu.classList.remove("active"));
+        this.classList.add("active");
+
+        pages.forEach(p => p.classList.remove("active"));
+
+        const selectedPage = document.getElementById(page);
+
+        if (selectedPage) {
+            selectedPage.classList.add("active");
+        }
+
+        pageTitle.textContent = this.textContent.trim();
+
+        document.querySelector(".sidebar").classList.remove("open");
+    });
+});
+
+// ===============================
+// MENU MOBILE
+// ===============================
+
+const menuToggle = document.getElementById("menu-toggle");
+
+if (menuToggle) {
+    menuToggle.addEventListener("click", () => {
+        document.querySelector(".sidebar").classList.toggle("open");
+    });
+}
+
+// ===============================
+// RENDERIZAR CLIENTES
+// ===============================
+
+function renderClientes(lista = clientes) {
+    const container = document.getElementById("clientes-list");
+
+    if (!container) return;
+
+    if (lista.length === 0) {
+        container.innerHTML = "<p>Nenhum cliente encontrado.</p>";
+        return;
+    }
+
+    container.innerHTML = lista.map(cliente => `
+        <div class="client-card">
+            <h3>👤 ${cliente.nome}</h3>
+            <p>📞 ${cliente.telefone}</p>
+            <p>✉️ ${cliente.email}</p>
+            <p>💼 ${cliente.servico}</p>
+            <span class="status">${cliente.status}</span>
+        </div>
+    `).join("");
+}
+
+// ===============================
+// RENDERIZAR LEADS
+// ===============================
+
+function renderLeads() {
+    const container = document.getElementById("leads-list");
+
+    if (!container) return;
+
+    const origem = document.getElementById("filter-origem").value;
+    const status = document.getElementById("filter-status-lead").value;
+
+    let lista = leads.filter(lead => {
+        return (!origem || lead.origem === origem) &&
+               (!status || lead.status === status);
+    });
+
+    if (lista.length === 0) {
+        container.innerHTML = "<p>Nenhum lead encontrado.</p>";
+        return;
+    }
+
+    container.innerHTML = lista.map(lead => `
+        <div class="lead-card">
+            <h3>🎯 ${lead.nome}</h3>
+            <p>📞 ${lead.telefone}</p>
+            <p>💼 Serviço: ${lead.servico}</p>
+            <p>📍 Origem: ${lead.origem}</p>
+            <br>
+            <span class="status">${lead.status}</span>
+        </div>
+    `).join("");
+}
+
+// ===============================
+// RENDERIZAR AGENDAMENTOS
+// ===============================
+
+function renderAgendamentos() {
+    const dashboard = document.getElementById("agendamentos-list");
+    const full = document.getElementById("agendamentos-full-list");
+
+    const html = agendamentos.map(agendamento => `
+        <div class="appointment-card">
+            <div>
+                <strong>👤 ${agendamento.paciente}</strong>
+                <p>${agendamento.servico} — ${agendamento.profissional}</p>
+            </div>
+            <strong>🕐 ${agendamento.horario}</strong>
+        </div>
+    `).join("");
+
+    if (dashboard) {
+        dashboard.innerHTML = html;
+    }
+
+    if (full) {
+        full.innerHTML = html;
+    }
+}
+
+// ===============================
+// RENDERIZAR SERVIÇOS
+// ===============================
+
+function renderServicos() {
+    const container = document.getElementById("servicos-list");
+
+    if (!container) return;
+
+    container.innerHTML = servicos.map(servico => `
+        <div class="service-card">
+            <h3>💼 ${servico.nome}</h3>
+            <p>${servico.descricao}</p>
+            <br>
+            <strong>${servico.preco}</strong>
+        </div>
+    `).join("");
+}
+
+// ===============================
+// AUTOMAÇÕES
+// ===============================
+
+function renderAutomacoes() {
+    const dados = [
+        {
+            titulo: "Confirmação automática",
+            descricao: "Envia confirmação após o agendamento.",
+            ativa: true
+        },
+        {
+            titulo: "Lembrete 24 horas",
+            descricao: "Envia lembrete antes do atendimento.",
+            ativa: true
+        },
+        {
+            titulo: "Follow-up",
+            descricao: "Identifica clientes que precisam de acompanhamento.",
+            ativa: true
+        }
+    ];
+
+    const html = dados.map(item => `
+        <div class="automation-card ${item.ativa ? "automation-active" : ""}">
+            <h3>🤖 ${item.titulo}</h3>
+            <p>${item.descricao}</p>
+            <br>
+            <span class="status">
+                ${item.ativa ? "Ativa" : "Desativada"}
+            </span>
+        </div>
+    `).join("");
+
+    const dashboard = document.getElementById("automacoes-list");
+    const full = document.getElementById("automacoes-full-list");
+
+    if (dashboard) dashboard.innerHTML = html;
+    if (full) full.innerHTML = html;
+}
+
+// ===============================
+// MODAIS
+// ===============================
+
+function abrirModal(id) {
+    const modal = document.getElementById(id);
+
+    if (modal) {
+        modal.classList.add("active");
+    }
+}
+
+function fecharModal(id) {
+    const modal = document.getElementById(id);
+
+    if (modal) {
+        modal.classList.remove("active");
+    }
+}
+
+// CLIENTE
+document.getElementById("btn-novo-cliente")
+    ?.addEventListener("click", () => abrirModal("modal-cliente"));
+
+document.getElementById("btn-cancelar-cliente")
+    ?.addEventListener("click", () => fecharModal("modal-cliente"));
+
+document.querySelector("#modal-cliente .close")
+    ?.addEventListener("click", () => fecharModal("modal-cliente"));
+
+document.getElementById("btn-salvar-cliente")
+    ?.addEventListener("click", () => {
+
+        const nome = document.getElementById("cliente-nome").value.trim();
+        const telefone = document.getElementById("cliente-telefone").value.trim();
+        const email = document.getElementById("cliente-email").value.trim();
+        const servico = document.getElementById("cliente-servico").value;
+        const status = document.getElementById("cliente-status").value;
+
+        if (!nome || !telefone) {
+            alert("Preencha pelo menos nome e telefone.");
+            return;
+        }
+
+        clientes.push({
+            nome,
+            telefone,
+            email,
+            servico,
+            status
+        });
+
+        renderClientes();
+
+        fecharModal("modal-cliente");
+
+        document.getElementById("cliente-nome").value = "";
+        document.getElementById("cliente-telefone").value = "";
+        document.getElementById("cliente-email").value = "";
+
+        atualizarDashboard();
+    });
+
+// LEAD
+document.getElementById("btn-novo-lead")
+    ?.addEventListener("click", () => abrirModal("modal-lead"));
+
+document.getElementById("btn-cancelar-lead")
+    ?.addEventListener("click", () => fecharModal("modal-lead"));
+
+document.querySelector("#modal-lead .close")
+    ?.addEventListener("click", () => fecharModal("modal-lead"));
+
+document.getElementById("btn-salvar-lead")
+    ?.addEventListener("click", () => {
+
+        const nome = document.getElementById("lead-nome").value.trim();
+        const telefone = document.getElementById("lead-telefone").value.trim();
+        const servico = document.getElementById("lead-servico").value;
+        const origem = document.getElementById("lead-origem").value;
+        const status = document.getElementById("lead-status").value;
+
+        if (!nome || !telefone) {
+            alert("Preencha nome e telefone.");
+            return;
+        }
+
+        leads.push({
+            nome,
+            telefone,
+            servico,
+            origem,
+            status
+        });
+
+        renderLeads();
+
+        fecharModal("modal-lead");
+
+        document.getElementById("lead-nome").value = "";
+        document.getElementById("lead-telefone").value = "";
+
+        atualizarDashboard();
+    });
+
+// ===============================
+// PESQUISA DE CLIENTES
+// ===============================
+
+document.getElementById("search-clientes")
+    ?.addEventListener("input", function() {
+
+        const termo = this.value.toLowerCase();
+
+        const filtrados = clientes.filter(cliente =>
+            cliente.nome.toLowerCase().includes(termo) ||
+            cliente.telefone.toLowerCase().includes(termo)
+        );
+
+        renderClientes(filtrados);
+    });
+
+// ===============================
+// FILTROS DE LEADS
+// ===============================
+
+document.getElementById("filter-origem")
+    ?.addEventListener("change", renderLeads);
+
+document.getElementById("filter-status-lead")
+    ?.addEventListener("change", renderLeads);
+
+// ===============================
+// ASSISTENTE IA SIMULADO
+// ===============================
+
+const iaInput = document.getElementById("ia-input");
+const btnEnviarIA = document.getElementById("btn-enviar-ia");
+const iaChat = document.getElementById("ia-chat");
+
+function enviarMensagemIA() {
+
+    if (!iaInput || !iaChat) return;
+
+    const mensagem = iaInput.value.trim();
+
+    if (!mensagem) return;
+
+    iaChat.innerHTML += `
+        <div class="chat-message user">
+            <p>${mensagem}</p>
+        </div>
+    `;
+
+    iaInput.value = "";
+
+    setTimeout(() => {
+
+        let resposta =
+            "Entendi! Posso ajudar a organizar os clientes, leads, agendamentos e follow-ups da clínica.";
+
+        const texto = mensagem.toLowerCase();
+
+        if (texto.includes("lead")) {
+            resposta = "Identifiquei que você está falando sobre leads. Recomendo priorizar os leads com status 'Em negociação'.";
+        }
+
+        if (texto.includes("agendamento")) {
+            resposta = "Existem " + agendamentos.length + " agendamentos cadastrados no sistema.";
+        }
+
+        if (texto.includes("cliente")) {
+            resposta = "Atualmente existem " + clientes.length + " clientes cadastrados.";
+        }
+
+        iaChat.innerHTML += `
+            <div class="chat-message bot">
+                <p>${resposta}</p>
+            </div>
+        `;
+
+        iaChat.scrollTop = iaChat.scrollHeight;
+
+    }, 500);
+}
+
+btnEnviarIA?.addEventListener("click", enviarMensagemIA);
+
+iaInput?.addEventListener("keydown", event => {
+    if (event.key === "Enter") {
+        enviarMensagemIA();
+    }
+});
+
+// BOTÕES DA IA
+document.querySelectorAll(".ia-functions button").forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        const funcao = button.dataset.function;
+
+        let resposta = "";
+
+        if (funcao === "classify") {
+            resposta = "📊 Análise: os leads em negociação devem receber prioridade de atendimento.";
+        }
+
+        if (funcao === "suggest") {
+            resposta = "💬 Sugestão: 'Olá! 😊 Podemos agendar sua avaliação. Qual dia e horário são melhores para você?'";
+        }
+
+        if (funcao === "summary") {
+            resposta = "📋 Resumo: clientes cadastrados = " + clientes.length + ". Leads = " + leads.length + ".";
+        }
+
+        if (funcao === "followup") {
+            resposta = "🔔 Existem clientes que podem receber follow-up para aumentar a conversão.";
+        }
+
+        if (iaChat) {
+            iaChat.innerHTML += `
+                <div class="chat-message bot">
+                    <p>${resposta}</p>
+                </div>
+            `;
+
+            iaChat.scrollTop = iaChat.scrollHeight;
         }
     });
 });
 
-document.getElementById('menu-toggle').addEventListener('click', () => {
-    document.querySelector('.sidebar').classList.toggle('active');
-    document.getElementById('menu-toggle').classList.toggle('active');
-});
+// ===============================
+// DASHBOARD
+// ===============================
 
-function changePage(pageName) {
-    // Esconder todas as páginas
-    document.querySelectorAll('.page').forEach(page => {
-        page.classList.remove('active');
-    });
+function atualizarDashboard() {
 
-    // Mostrar página selecionada
-    const page = document.getElementById(pageName);
-    if (page) {
-        page.classList.add('active');
+    const totalPacientes = document.getElementById("total-pacientes");
+    const followups = document.getElementById("followups");
+    const leadsNegociacao = document.getElementById("leads-negociacao");
+    const agendamentosHoje = document.getElementById("agendamentos-hoje");
+
+    if (totalPacientes) {
+        totalPacientes.textContent = clientes.length;
     }
 
-    // Atualizar menu ativo
+    if (agendamentosHoje) {
+        agendamentosHoje.textContent =
+            String(agendamentos.length).padStart(2, "0");
+    }
+
+    if (followups) {
+        followups.textContent = "03";
+    }
+
+    if (leadsNegociacao) {
+        leadsNegociacao.textContent =
+            leads.filter(l => l.status === "Em negociação").length;
+    }
+}
+
+// ===============================
+// LIMPAR DADOS
+// ===============================
+
+document.getElementById("btn-limpar-dados")
+    ?.addEventListener("click", () => {
+
+        const confirmar = confirm(
+            "Tem certeza que deseja limpar os dados?"
+        );
+
+        if (!confirmar) return;
+
+        clientes = [];
+        leads = [];
+
+        renderClientes();
+        renderLeads();
+        atualizarDashboard();
+
+        alert("Dados limpos com sucesso!");
+    });
+
+// ===============================
+// INICIALIZAÇÃO
+// ===============================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    renderClientes();
+    renderLeads();
+    renderAgendamentos();
+    renderServicos();
+    renderAutomacoes();
+    atualizarDashboard();
+
+    console.log("ClinicaAI carregado com sucesso!");
+});
+alert("SCRIPT FUNCIONOU!");    // Atualizar menu ativo
     document.querySelectorAll('.menu-item').forEach(item => {
         item.classList.remove('active');
     });
